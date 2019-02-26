@@ -5,21 +5,28 @@ from matplotlib import pyplot as plt
 
 NUM_BINS = 3
 
-<<<<<<< HEAD
 filename = "ozone.data"
-=======
-filename = "winequality-red.csv"
->>>>>>> 864f9f33e906ac5c064a07908acef88b5a3c0469
-data = np.loadtxt(filename, delimiter = ";", skiprows = 2, usecols = [1])
+#data = np.loadtxt(filename, delimiter = ",", skiprows = 2, usecols = [1])
+data = np.genfromtxt(filename, delimiter = ",", usecols = [1],filling_values=99)
+
+newData = []
+
 print len(data)
-print(data)
-m = (max(data))
+for i in range(len(data)):
+	if data[i] == 99:
+		print 'Missing value'
+	else:
+		newData.append(data[i])
+
+
+print(newData)
+m = (max(newData))
 print(m)
 
-newData = data/m
+newData = newData/m
 
 
-for i in range(len(data)):
+for i in range(len(newData)):
 	if newData[i] >= 1 or newData[i] <=0:
 		print(i, newData[i])
 sum = 0
@@ -44,31 +51,15 @@ dataMean = sum / len(newData)
 
 # #print (sum / 10.0)
 
-<<<<<<< HEAD
-=======
+
 histogram = plt.figure()
 
->>>>>>> 864f9f33e906ac5c064a07908acef88b5a3c0469
 # #print(x)
 x_mu = dps.dp_mean(newData, 1.0, 0.1 )
 #print(x_mu)
 #print(dataMean)
 
 hist = dps.dp_hist ( newData, num_bins=NUM_BINS, epsilon=1.0, delta=0.1, histtype = 'continuous' )
-
-<<<<<<< HEAD
-
-f1 = plt.figure(1)
-plt.hist(newData, bins = hist[1])
-
-plt.title("new Data")
-=======
-plt.hist(newData, bins = hist[1])
-
-plt.title("new Data")
-plt.show()
->>>>>>> 864f9f33e906ac5c064a07908acef88b5a3c0469
-
 
 
 fakeData = np.zeros(len(newData))
@@ -83,28 +74,17 @@ for j in range(NUM_BINS):
 		if (i + offset) < len(fakeData):
 			fakeData[i + offset] = val
 		i = i + 1
-<<<<<<< HEAD
 	offset = offset + int(round(hist[0][j]))
-=======
-		offset = offset + int(round(hist[0][j]))
->>>>>>> 864f9f33e906ac5c064a07908acef88b5a3c0469
 
 
 print fakeData
 
-<<<<<<< HEAD
-f2 = plt.figure(2)
 
-=======
->>>>>>> 864f9f33e906ac5c064a07908acef88b5a3c0469
-plt.hist(fakeData, bins = hist[1])
-plt.title("fake Data")
+plt.hist([fakeData, newData], bins = hist[1], color = ['blue', 'green'])
+plt.title("New vs. Fake Data")
 
 
-<<<<<<< HEAD
 plt.show()
-=======
 #plt.show()
 
 print(hist)
->>>>>>> 864f9f33e906ac5c064a07908acef88b5a3c0469
