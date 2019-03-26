@@ -1,4 +1,5 @@
 import dp_stats as dps
+import numpy as np
 from matplotlib import pyplot as plt
 
 
