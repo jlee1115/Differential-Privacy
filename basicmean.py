@@ -2,7 +2,7 @@ import dp_stats as dps
 from matplotlib import pyplot as plt
 
 
-file = "new.csv"
+file = "AT_W27.csv"
 pewData = np.loadtxt(file, delimiter = ",", usecols = [29], skiprows = 2)
 d = []
 for i in range(len(pewData)):
